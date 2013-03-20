@@ -9,15 +9,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-
+	static Map<String, String> data = new HashMap<String, String>();
 	public static void main(String[] args) {
+
 		System.out.println("Welcome to Deal or No Deal");
 
-		//Todo List
-		//TODO Finish the Commands
-		
+		// Todo List
+		// TODO Finish the Commands
+
 		// Declare them variables
-		Map<String, Integer> data = new HashMap<String, Integer>();
+		
 		List<Integer> dontRepeat = Collections
 				.synchronizedList(new ArrayList<Integer>(26));
 		int[] cases;
@@ -35,11 +36,7 @@ public class Main {
 				e.printStackTrace();
 			}
 		} else {
-			try {
-				SLAPI.save(data, "data.bin");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 			for (int i = 0; i < 26; i++) {
 				int rnum = rn.nextInt(26);
 				if (!dontRepeat.contains(rnum)) {
@@ -51,7 +48,7 @@ public class Main {
 				}
 
 				cases[i] = caseHandler.caseHandler(rnum);
-				data.put(i + "", cases[i]);
+				data.put(i + "", cases[i] + "");
 				System.out.println("Created case " + i + " with value of: "
 						+ cases[i]);
 
@@ -78,8 +75,28 @@ public class Main {
 					i--;
 					continue;
 				}
+
+				System.out
+						.println("Please select 6 cases with a comma after each one: ");
+				String sixCasesRaw = input.next();
+				String sixCases[] = sixCasesRaw.split(",");
+				sixCases = new String[6];
+				
+				for (int i1 = 0; i1<sixCases.length; i1++) {
+					data.put("FSix", sixCases[i1]);
+					System.out.println(sixCases[i1]);
+				}
+				saveThatData();
 			}
 		}
 
+	}
+
+	public static void saveThatData(){
+		try {
+			SLAPI.save(data, "data.bin");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
