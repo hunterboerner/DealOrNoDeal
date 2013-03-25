@@ -21,6 +21,8 @@ public class Main {
 		
 		List<Integer> dontRepeat = Collections
 				.synchronizedList(new ArrayList<Integer>(26));
+		List<Integer> caseChoices = Collections
+				.synchronizedList(new ArrayList<Integer>(26));
 		int[] cases;
 		cases = new int[26];
 		Random rn = new Random();
@@ -46,7 +48,7 @@ public class Main {
 					i--;
 					continue;
 				}
-
+				caseChoices.add(i);
 				cases[i] = caseHandler.caseHandler(rnum);
 				data.put(i + "", cases[i] + "");
 				System.out.println("Created case " + i + " with value of: "
@@ -61,6 +63,7 @@ public class Main {
 				int inputInt = 0;
 				try {
 					inputInt = Integer.parseInt(inputString);
+					caseChoices.remove(inputInt);
 				} catch (NumberFormatException the_input_string_isnt_an_integer) {
 					System.out.println("Yo, dat ain't a string!");
 					i--;
@@ -80,13 +83,18 @@ public class Main {
 						.println("Please select 6 cases with a comma after each one: ");
 				String sixCasesRaw = input.next();
 				String sixCases[] = sixCasesRaw.split(",");
-				sixCases = new String[6];
 				
-				for (int i1 = 0; i1<sixCases.length; i1++) {
+				
+				for (int i1 = 0; i1<6; i1++) {
 					data.put("FSix", sixCases[i1]);
 					System.out.println(sixCases[i1]);
 				}
 				saveThatData();
+				
+				for(int i2 = 0; i2<6; i2++){
+					String caseValue = data.get(sixCases[i2]);
+					System.out.println("Case " + i2 + " has " + caseValue + " dollarz in it");
+				}
 			}
 		}
 
